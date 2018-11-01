@@ -1,27 +1,36 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import Credit from './components/Credit';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import { createStackNavigator,} from 'react-navigation';
+import { StyleSheet, Text, View, Button, TextInput, TouchableOpacity } from 'react-native';
 
-//class App extends React.Component {
-//    
-//    //const db = firebase.firestore();
-//    
-////    handleSignIn=()=>{
-////        firebase.auth().signInWIthEmailAndPassword('Testing@test.com', 'Password')
-////    }
-//    
-//  render() {
-//    return (
-//      <View style={styles.container}>
-//            <Credit/>
-//            <SignIn/>
-//      </View>
-//    );
-//  }
-//}
+import { Provider } from "react-redux";
+import Thunk from "redux-thunk";
+import { createStore, applyMiddleware } from "redux";
+
+import combine from "./redux/combine";
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import Nav from "./components/Nav";
+
+import Map from "./components/Map";
+
+const store = createStore(
+  combine,
+  applyMiddleware(
+    Thunk
+  )
+);
+
+class App extends React.Component {
+
+  render() {
+    return (
+      <Provider store={store}>
+        <View style={styles.container}>
+          <Map />
+        </View>
+      </Provider>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -30,11 +39,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   }
-});
-
-const App = createStackNavigator({
-    Home: { screen: SignIn },
-    Register: { screen: SignUp },
 });
 
 export default App;

@@ -3,6 +3,9 @@ import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import Firebase from './Firebase';
 import * as firebase from 'firebase';
 
+import { connect } from "react-redux";
+import { ChangePage } from "../redux/actions";
+
 class SignUp extends React.Component {
     
     state = {
@@ -26,6 +29,10 @@ class SignUp extends React.Component {
                 console.log(error);
         });
          }
+    
+    handleGoBack=()=>{
+      this.props.dispatch(ChangePage(1));
+    }
     
   render() {
     return (
@@ -59,6 +66,10 @@ class SignUp extends React.Component {
                 title="Create Account"
                 onPress={()=> this.handleSignUp(this.state.email,this.state.password)}
                 />
+            <Button
+              title="Go Back"
+              onPress={this.handleGoBack}
+              />
       </View>
     );
   }
@@ -82,4 +93,10 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SignUp;
+function mp(state){
+  return {
+    
+  }
+}
+
+export default connect(mp)(SignUp);
