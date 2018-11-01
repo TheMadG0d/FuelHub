@@ -1,9 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TextInput, Dimensions } from 'react-native';
-import Firebase from './Firebase';
-import * as firebase from 'firebase';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import { Location, Permissions } from 'expo';
+import { Location } from 'expo';
 
 const { width, height } = Dimensions.get('window')
 
@@ -71,7 +69,6 @@ class Map extends React.Component {
   })
                                            
 }
-
     componentWillUnmount(){
       navigator.geologcation.clearWatch(this.watchID)
     }
